@@ -1,23 +1,31 @@
 import React from "react";
 import "./cardLagu.css";
+import data from "../data";
 
-export default function CardLagu(props) {
+export default function CardLagu() {
+  const Databaru = data.map((filterData) => (
+    <div className="cards" key={filterData.album.artists[0].id}>
+      <div className="card-img">
+        <img src={filterData.album.images[0].url} alt="" />
+      </div>
+      <div className="card-main">
+        <h1>{filterData.album.artists[0].name}</h1>
+        <h2>{filterData.album.name}</h2>
+      </div>
+      <div>
+        <button className="card-btn">Select</button>
+      </div>
+    </div>
+
+    // <figure key={filterData.id}>
+    //   <img src={filterData.url} />
+    //   <figcaption>{filterData.title}</figcaption>
+    // </figure>
+  ));
+
   return (
     <div className="top">
-      <div className="container-lagu">
-        <div className="cards">
-          <div className="card-img">
-            <img src={props.data.album.images[0].url} alt="" />
-          </div>
-          <div className="card-main">
-            <h1>{props.data.name}</h1>
-            <h2>{props.data.artists[0].name}</h2>
-          </div>
-          <div>
-            <button className="card-btn">Select</button>
-          </div>
-        </div>
-      </div>
+      <div className="container-lagu">{Databaru}</div>
     </div>
   );
 }

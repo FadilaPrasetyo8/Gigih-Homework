@@ -7,7 +7,7 @@ export default function Main() {
   return (
     <div>
       <CardForm />
-      <CardLagu data={data} />
+      <CardLagu />
     </div>
   );
 }
