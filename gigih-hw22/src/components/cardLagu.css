@@ -1,5 +1,5 @@
 .top {
-  height: 600px;
+  height: 1700px;
 }
 
 .container-lagu {
@@ -7,6 +7,8 @@
   padding-top: 20px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
 }
 
 .cards {
@@ -17,11 +19,16 @@
   text-align: center;
   background-color: #ffffff;
   border-radius: 8px;
-  margin: auto;
+  margin-bottom: 30px;
 }
 
 .card-img img {
   width: 100%;
+}
+
+.card-main p {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #888888;
 }
 
 .card-btn {

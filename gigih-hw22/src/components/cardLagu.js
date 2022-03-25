@@ -10,7 +10,7 @@ export default function CardLagu() {
       </div>
       <div className="card-main">
         <h1>{filterData.album.artists[0].name}</h1>
-        <h2>{filterData.album.name}</h2>
+        <p>{filterData.album.name}</p>
       </div>
       <div>
         <button className="card-btn">Select</button>
