@@ -1,12 +1,11 @@
 import React from "react";
-import CardForm from "../../components/cardForm";
+// import CardForm from "../../components/cardForm";
 import CardLagu from "../../components/cardLagu";
-import data from "../../data";
+// import CardLagu from "../../components/cardLagu";
 
 export default function Main() {
   return (
     <div>
-      <CardForm />
       <CardLagu />
     </div>
   );
