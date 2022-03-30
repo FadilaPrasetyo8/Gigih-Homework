@@ -17,24 +17,27 @@ export default function CardForm() {
 
   useEffect(() => {
     const hash = window.location.hash;
-    let token = window.localStorage.getItem("token");
+    // console.log(window.location);
+    // let tkn = window.localStorage.getItem("token");
 
     if (!token && hash) {
-      token = hash
-        .substring(1)
-        .split("&")
-        .find((elem) => elem.startsWith("access_token"))
-        .split("=")[1];
-
+      setToken(
+        hash
+          .substring(1)
+          .split("&")
+          .find((elem) => elem.startsWith("access_token"))
+          .split("=")[1]
+      );
       window.location.hash = "";
-      window.localStorage.setItem("token", token);
+
+      // window.localStorage.setItem("token", token);
     }
-    setToken(token);
+    // setToken(token);
   }, []);
 
   const logout = () => {
     setToken("");
-    window.localStorage.removeItem("token");
+    // window.localStorage.removeItem("token");
   };
 
   const searchArtists = async (e) => {
@@ -45,19 +48,19 @@ export default function CardForm() {
       },
       params: {
         q: searchKey,
-        type: "artist",
+        type: "track",
       },
     });
 
-    setArtist(data.artists.items);
+    setArtist(data.tracks.items);
   };
 
   const renderArtists = () => {
     return artists.map((artist) => (
       <div className="cards" key={artist.id}>
         <div className="card-img">
-          {artist.images.length ? (
-            <img src={artist.images[0].url} alt="" />
+          {artist.album.images.length ? (
+            <img src={artist.album.images[0].url} alt="" />
           ) : (
             <div>No Image</div>
           )}
