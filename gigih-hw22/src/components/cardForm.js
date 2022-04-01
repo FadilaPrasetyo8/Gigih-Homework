@@ -14,6 +14,7 @@ export default function CardForm() {
   const [token, setToken] = useState("");
   const [searchKey, setsearchKey] = useState("");
   const [artists, setArtist] = useState([]);
+  const [itemSelected, setItemSelected] = useState([]);
 
   useEffect(() => {
     const hash = window.location.hash;
@@ -55,6 +56,14 @@ export default function CardForm() {
     setArtist(data.tracks.items);
   };
 
+  const handleSelected = (item) => {
+    if (!itemSelected.includes(item)) {
+      setItemSelected([...itemSelected, item]);
+    } else {
+      setItemSelected(itemSelected.filter((elem) => elem !== item));
+    }
+  };
+
   const renderArtists = () => {
     return artists.map((artist) => (
       <div className="cards" key={artist.id}>
@@ -69,7 +78,24 @@ export default function CardForm() {
           <p>{artist.name}</p>
         </div>
         <div>
-          <button className="card-btn">Select</button>
+          {!itemSelected.includes(artist.id) ? (
+            <button
+              className="card-btn"
+              type="button"
+              onClick={() => handleSelected(artist.id)}
+            >
+              Select
+            </button>
+          ) : (
+            <button
+              className="card-btn"
+              style={{ backgroundColor: "#FF0000" }}
+              type="button"
+              onClick={() => handleSelected(artist.id)}
+            >
+              Deselect
+            </button>
+          )}
         </div>
       </div>
     ));
