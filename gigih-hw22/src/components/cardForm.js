@@ -52,7 +52,6 @@ export default function CardForm() {
         type: "track",
       },
     });
-
     setArtist(data.tracks.items);
   };
 
@@ -63,6 +62,43 @@ export default function CardForm() {
       setItemSelected(itemSelected.filter((elem) => elem !== item));
     }
   };
+
+  // const selectedItem = () => {
+  //   return itemSelected.map((artist) => (
+  //     <div className="cards" key={artist.id}>
+  //       <div className="card-img">
+  //         {artist.album.images.length ? (
+  //           <img src={artist.album.images[0].url} alt="" />
+  //         ) : (
+  //           <div>No Image</div>
+  //         )}
+  //       </div>
+  //       <div className="card-main">
+  //         <p>{artist.name}</p>
+  //       </div>
+  //       <div>
+  //         {!itemSelected.includes(artist.id) ? (
+  //           <button
+  //             className="card-btn"
+  //             type="button"
+  //             onClick={() => handleSelected(artist.id)}
+  //           >
+  //             Select
+  //           </button>
+  //         ) : (
+  //           <button
+  //             className="card-btn"
+  //             style={{ backgroundColor: "#FF0000" }}
+  //             type="button"
+  //             onClick={() => handleSelected(artist.id)}
+  //           >
+  //             Deselect
+  //           </button>
+  //         )}
+  //       </div>
+  //     </div>
+  //   ));
+  // };
 
   const renderArtists = () => {
     return artists.map((artist) => (
@@ -141,6 +177,7 @@ export default function CardForm() {
             </div>
           </div>
         </div>
+        {/* <div>{selectedItem()}</div> */}
         <div className="top">
           <div className="container-lagu">{renderArtists()}</div>
         </div>
