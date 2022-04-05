@@ -1,33 +1,31 @@
 import React from "react";
 import "./cardLagu.css";
-import CardForm from "./cardForm";
+import Card from "./Card/card";
 
-export default function CardLagu() {
-  // const Databaru = data.map((filterData) => (
-  //   <div className="cards" key={filterData.album.artists[0].id}>
-  //     <div className="card-img">
-  //       <img src={filterData.album.images[0].url} alt="" />
-  //     </div>
-  //     <div className="card-main">
-  //       <h1>{filterData.album.artists[0].name}</h1>
-  //       <p>{filterData.album.name}</p>
-  //     </div>
-  //     <div>
-  //       <button className="card-btn">Select</button>
-  //     </div>
-  //   </div>
-
-  //   // <figure key={filterData.id}>
-  //   //   <img src={filterData.url} />
-  //   //   <figcaption>{filterData.title}</figcaption>
-  //   // </figure>
-  // ));
-
+const CardLagu = ({ track, isSelected, onSelectTracks }) => {
   return (
-    <div className="top">
-      <div className="container-lagu">
-        <CardForm />
+    <Card className="card-lagu">
+      <div className="images">
+        <img src={track.album.images[0].url} />
       </div>
-    </div>
+      <div className="nama-lagu">
+        <p>{track.name}</p>
+      </div>
+      <div className="nama-artist">
+        <p>{track.artists.map((artist) => artist.name).join(", ")}</p>
+      </div>
+      <div className="option">
+        <div className="select">
+          <button
+            className={isSelected ? " btn-deselect" : ""}
+            onClick={onSelectTracks}
+          >
+            {!isSelected ? "Select" : "Deselect"}
+          </button>
+        </div>
+      </div>
+    </Card>
   );
-}
+};
+
+export default CardLagu;
