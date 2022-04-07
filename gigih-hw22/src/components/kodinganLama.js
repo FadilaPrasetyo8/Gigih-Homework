@@ -4,8 +4,17 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./cardLagu.css";
 import "./kodinganLama.css";
-import CardLagu from "./cardLagu";
-
+import Lagu from "./Lagu";
+import NewPlaylist from "./newPlaylist";
+import TokenContext from "../contex/contex";
+import LoginPage from "../pages/Login/Login";
+import {
+  getTracks,
+  getToken,
+  createPlaylist,
+  getUserInfo,
+  addTracks,
+} from "../auth/auth";
 export default function KodinganLama() {
   const CLIENT_ID = "55ec1a3ca9a64bfa9720edac9915bf53";
   const REDIRECT_URI = "http://localhost:3000/";
@@ -18,11 +27,7 @@ export default function KodinganLama() {
   const [artists, setArtist] = useState([]);
   const [itemSelected, setItemSelected] = useState([]);
 
-  const [tracks, setTracks] = useState([]);
-  const [keyword, setKeyword] = useState("");
-
   // Tracks to add to playlist
-  const [selectedTracks, setSelectedTracks] = useState([]);
 
   // Config
 
@@ -30,28 +35,33 @@ export default function KodinganLama() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const hash = window.location.hash;
+    // const hash = window.location.hash;
     // console.log(window.location);
     // let tkn = window.localStorage.getItem("token");
 
-    if (!token && hash) {
-      setToken(
-        hash
-          .substring(1)
-          .split("&")
-          .find((elem) => elem.startsWith("access_token"))
-          .split("=")[1]
-      );
-      window.location.hash = "";
-
-      // window.localStorage.setItem("token", token);
+    if (!token) {
+      setToken(getToken());
     }
+
+    // if (!token && hash) {
+    //   setToken(
+    //     hash
+    //       .substring(1)
+    //       .split("&")
+    //       .find((elem) => elem.startsWith("access_token"))
+    //       .split("=")[1]
+    //   );
+    //   window.location.hash = "";
+
+    //   // window.localStorage.setItem("token", token);
+    // }
     // setToken(token);
   }, []);
 
   const logout = () => {
     setToken("");
-    // window.localStorage.removeItem("token");
+    setArtist([]);
+    window.localStorage.removeItem("token");
   };
 
   const searchArtists = async (e) => {
@@ -68,88 +78,54 @@ export default function KodinganLama() {
     setArtist(data.tracks.items);
   };
 
-  const handleSelected = (item) => {
-    if (!itemSelected.includes(item)) {
-      setItemSelected([...itemSelected, item]);
-    } else {
-      setItemSelected(itemSelected.filter((elem) => elem !== item));
+  useEffect(() => {
+    if (token) {
+      getUserInfo(token).then((res) => {
+        setUserInfo(res);
+      });
     }
+  }, [token]);
+
+  const handleCreatePlaylist = (e) => {
+    e.preventDefault();
+
+    // Retrieve the user's input
+    const playlistData = {
+      name: e.target.title.value,
+      description: e.target.desc.value,
+    };
+
+    // Create playlist and add the selected tracks
+    const tracksToAdd = itemSelected.map((track) => track.uri);
+    createPlaylist(userInfo.id, playlistData, tracksToAdd);
+
+    // Reset State
+    setItemSelected([]);
   };
 
-  // const handleCreatePlaylist = (e) => {
-  //   e.preventDefault();
+  const handleSelect = (track) => {
+    const isSelected = itemSelected.find(
+      (itemSelected) => itemSelected === track
+    );
 
-  //   // Retrieve the user's input
-  //   const playlistData = {
-  //     name: e.target.title.value,
-  //     description: e.target.desc.value,
-  //   };
-
-  //   // Create playlist and add the selected tracks
-  //   const tracksToAdd = selectedTracks.map((track) => track.uri);
-  //   createPlaylist(userInfo.id, playlistData, tracksToAdd);
-
-  //   // Reset State
-  //   setSelectedTracks([]);
-  //   setShow(false);
-  // };
-
-  // const selectedItem = () => {
-  //   return itemSelected.map((artist) => (
-  //     <div className="cards" key={artist.id}>
-  //       <div className="card-img">
-  //         {artist.album.images.length ? (
-  //           <img src={artist.album.images[0].url} alt="" />
-  //         ) : (
-  //           <div>No Image</div>
-  //         )}
-  //       </div>
-  //       <div className="card-main">
-  //         <p>{artist.name}</p>
-  //       </div>
-  //       <div>
-  //         {!itemSelected.includes(artist.id) ? (
-  //           <button
-  //             className="card-btn"
-  //             type="button"
-  //             onClick={() => handleSelected(artist.id)}
-  //           >
-  //             Select
-  //           </button>
-  //         ) : (
-  //           <button
-  //             className="card-btn"
-  //             style={{ backgroundColor: "#FF0000" }}
-  //             type="button"
-  //             onClick={() => handleSelected(artist.id)}
-  //           >
-  //             Deselect
-  //           </button>
-  //         )}
-  //       </div>
-  //     </div>
-  //   ));
-  // };
-
-  const renderArtists = () => {};
+    if (isSelected) {
+      setItemSelected(
+        itemSelected.filter((selectedTrack) => selectedTrack !== track)
+      );
+    } else {
+      setItemSelected((prev) => [...prev, track]);
+    }
+  };
 
   return (
     <div className="App">
       <header className="App-header">
-        {/* <h1>Spotify React</h1> */}
         <div className="form">
           <div className="container">
             <div className="card">
-              <div className="title">
-                <h1>Search Music</h1>
-              </div>
+              <div className="title"></div>
 
               {token ? (
-                // <form onSubmit={searchArtists}>
-                //   <input type="text" onChange={(e) => setsearchKey(e.target.value)} />
-                //   <button type={"submit"}>Search</button>
-                // </form>
-
                 <form onSubmit={searchArtists}>
                   <input
                     type="text"
@@ -162,23 +138,29 @@ export default function KodinganLama() {
               )}
 
               {!token ? (
-                <a
-                  href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONE_TYPE}&scope=${SCOPE}`}
-                >
-                  Login to Spotify
-                </a>
+                <LoginPage />
               ) : (
                 <button onClick={logout}>Logout</button>
               )}
             </div>
           </div>
         </div>
-        {/* <div>{selectedItem()}</div> */}
-        {/* <div className="top">
-          <div className="container-lagu">{renderArtists()}</div>
-        </div> */}
         <div>
-          <CardLagu artists={artists} itemSelected={itemSelected} />
+          {itemSelected.length > 0 ? (
+            <div>
+              <NewPlaylist onSubmit={handleCreatePlaylist} />
+              {/* <PlaylistView itemSelected={itemSelected} /> */}
+            </div>
+          ) : null}
+        </div>
+        <div className="top">
+          <div className="container-lagu">
+            <Lagu
+              tracks={artists}
+              onSelectTrack={handleSelect}
+              selectTrack={itemSelected}
+            />
+          </div>
         </div>
       </header>
     </div>

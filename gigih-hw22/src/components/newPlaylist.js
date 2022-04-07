@@ -1,10 +1,7 @@
 import React from "react";
 import Card from "./Card/card";
 
-const NewPlaylist = ({ onSubmit, show, onClose }) => {
-  if (!show) {
-    return null;
-  }
+const NewPlaylist = ({ onSubmit }) => {
   return (
     <Card className="card">
       <div className="title">
@@ -13,14 +10,14 @@ const NewPlaylist = ({ onSubmit, show, onClose }) => {
       <form className="form" onSubmit={onSubmit}>
         <div className="form-card">
           <label htmlFor="title">Judul</label>
-          <input type="text" id="title" placeholder="Judul Playlist" />
+          <input type="text" required id="title" placeholder="Judul Playlist" />
         </div>
         <div className="form-card">
-          <label htmlFor="desc">Judul</label>
-          <input type="text" id="title" placeholder="Deskripsi" />
+          <label htmlFor="desc">Deskripsi</label>
+          <input type="text" required id="desc" placeholder="Deskripsi" />
         </div>
         <div className="form-card">
-          <button id="submit"></button>
+          <button id="submit">Create</button>
         </div>
       </form>
     </Card>

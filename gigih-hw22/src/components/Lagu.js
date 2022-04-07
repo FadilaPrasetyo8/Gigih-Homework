@@ -6,10 +6,11 @@ const Lagu = ({ tracks, onSelectTrack, selectTrack }) => {
     return tracks.map((track) => {
       return (
         <CardLagu
+          className="top"
           key={track.id}
-          track={track}
-          onSelectTrack={onSelectTrack}
-          isSelected={selectTrack?.find(
+          tracks={track}
+          onSelectTracks={onSelectTrack}
+          itemSelected={selectTrack?.find(
             (selectTrack) => selectTrack.id === track.id
           )}
         />

@@ -1,4 +1,22 @@
-export const searchTrack = async (keyword, token) => {
+export const authSpotify = () => {
+  const config = {
+    client_id: "55ec1a3ca9a64bfa9720edac9915bf53",
+    redirect_uri: "http://localhost:3000/",
+    authorize_url: `https://accounts.spotify.com/authorize`,
+    scope: [
+      "user-read-email",
+      "user-read-private",
+      "playlist-modify-private",
+      "playlist-read-private",
+    ],
+  };
+
+  let redirectUrl = `${config.authorize_url}?client_id=${config.client_id}&response_type=token&redirect_uri=${config.redirect_uri}&scope=${config.scope}`;
+
+  window.location.replace(redirectUrl);
+};
+
+export const getTracks = async (keyword, token) => {
   const response = await fetch(
     `https://api.spotify.com/v1/search?q=${keyword}&type=track&limit=15`,
     {
@@ -15,7 +33,7 @@ export const searchTrack = async (keyword, token) => {
 
 export const getToken = () => {
   const hash = window.location.hash;
-  let token = window.localStorage.getItem("token");
+  let token = localStorage.getItem("token");
 
   if (!token && hash) {
     token = hash
@@ -23,10 +41,8 @@ export const getToken = () => {
       .split("&")
       .find((elem) => elem.startsWith("access_token"))
       .split("=")[1];
-
     window.location.hash = "";
-
-    window.localStorage.setItem("token", token);
+    localStorage.setItem("token", token);
   }
   return token;
 };

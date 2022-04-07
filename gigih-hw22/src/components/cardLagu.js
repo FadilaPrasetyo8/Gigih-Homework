@@ -2,7 +2,7 @@ import React from "react";
 import "./cardLagu.css";
 import Card from "./Card/card";
 
-const CardLagu = ({ onSelectTracks, artists, itemSelected }) => {
+const CardLagu = ({ onSelectTracks, tracks, itemSelected }) => {
   // return (
   //   <Card className="card-lagu">
   //     <div className="images">
@@ -27,40 +27,28 @@ const CardLagu = ({ onSelectTracks, artists, itemSelected }) => {
   //   </Card>
   // );
 
-  return artists.map((artist) => (
-    <div className="cards" key={artist.id}>
+  return (
+    <div className="cards" key={tracks.id}>
       <div className="card-img">
-        {artist.album.images.length ? (
-          <img src={artist.album.images[0].url} alt="" />
+        {tracks.album.images.length ? (
+          <img src={tracks.album.images[0].url} alt="" />
         ) : (
           <div>No Image</div>
         )}
       </div>
       <div className="card-main">
-        <p>{artist.name}</p>
+        <p>{tracks.name}</p>
       </div>
-      <div>
-        {!itemSelected.includes(artist.id) ? (
-          <button
-            className="card-btn"
-            type="button"
-            onClick={() => onSelectTracks(artist.id)}
-          >
-            Select
-          </button>
-        ) : (
-          <button
-            className="card-btn"
-            style={{ backgroundColor: "#FF0000" }}
-            type="button"
-            onClick={() => onSelectTracks(artist.id)}
-          >
-            Deselect
-          </button>
-        )}
+      <div className="btn">
+        <button
+          className={itemSelected ? " btn-deselect" : ""}
+          onClick={() => onSelectTracks(tracks)}
+        >
+          {!itemSelected ? "Select" : "Deselect"}
+        </button>
       </div>
     </div>
-  ));
+  );
 };
 
 export default CardLagu;
