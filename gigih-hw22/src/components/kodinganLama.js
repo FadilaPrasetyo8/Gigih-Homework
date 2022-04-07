@@ -4,8 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./cardLagu.css";
 import "./kodinganLama.css";
-import { getTracks, getToken, createPlaylist, getUserInfo } from "../auth/auth";
-import NewPlaylist from "./newPlaylist";
+import CardLagu from "./cardLagu";
 
 export default function KodinganLama() {
   const CLIENT_ID = "55ec1a3ca9a64bfa9720edac9915bf53";
@@ -77,23 +76,23 @@ export default function KodinganLama() {
     }
   };
 
-  const handleCreatePlaylist = (e) => {
-    e.preventDefault();
+  // const handleCreatePlaylist = (e) => {
+  //   e.preventDefault();
 
-    // Retrieve the user's input
-    const playlistData = {
-      name: e.target.title.value,
-      description: e.target.desc.value,
-    };
+  //   // Retrieve the user's input
+  //   const playlistData = {
+  //     name: e.target.title.value,
+  //     description: e.target.desc.value,
+  //   };
 
-    // Create playlist and add the selected tracks
-    const tracksToAdd = selectedTracks.map((track) => track.uri);
-    createPlaylist(userInfo.id, playlistData, tracksToAdd);
+  //   // Create playlist and add the selected tracks
+  //   const tracksToAdd = selectedTracks.map((track) => track.uri);
+  //   createPlaylist(userInfo.id, playlistData, tracksToAdd);
 
-    // Reset State
-    setSelectedTracks([]);
-    setShow(false);
-  };
+  //   // Reset State
+  //   setSelectedTracks([]);
+  //   setShow(false);
+  // };
 
   // const selectedItem = () => {
   //   return itemSelected.map((artist) => (
@@ -132,42 +131,7 @@ export default function KodinganLama() {
   //   ));
   // };
 
-  const renderArtists = () => {
-    return artists.map((artist) => (
-      <div className="cards" key={artist.id}>
-        <div className="card-img">
-          {artist.album.images.length ? (
-            <img src={artist.album.images[0].url} alt="" />
-          ) : (
-            <div>No Image</div>
-          )}
-        </div>
-        <div className="card-main">
-          <p>{artist.name}</p>
-        </div>
-        <div>
-          {!itemSelected.includes(artist.id) ? (
-            <button
-              className="card-btn"
-              type="button"
-              onClick={() => handleSelected(artist.id)}
-            >
-              Select
-            </button>
-          ) : (
-            <button
-              className="card-btn"
-              style={{ backgroundColor: "#FF0000" }}
-              type="button"
-              onClick={() => handleSelected(artist.id)}
-            >
-              Deselect
-            </button>
-          )}
-        </div>
-      </div>
-    ));
-  };
+  const renderArtists = () => {};
 
   return (
     <div className="App">
@@ -179,11 +143,7 @@ export default function KodinganLama() {
               <div className="title">
                 <h1>Search Music</h1>
               </div>
-              <newPlaylist
-                onSubmit={handleCreatePlaylist}
-                show={show}
-                onClose={() => setShow(false)}
-              />
+
               {token ? (
                 // <form onSubmit={searchArtists}>
                 //   <input type="text" onChange={(e) => setsearchKey(e.target.value)} />
@@ -214,8 +174,11 @@ export default function KodinganLama() {
           </div>
         </div>
         {/* <div>{selectedItem()}</div> */}
-        <div className="top">
+        {/* <div className="top">
           <div className="container-lagu">{renderArtists()}</div>
+        </div> */}
+        <div>
+          <CardLagu artists={artists} itemSelected={itemSelected} />
         </div>
       </header>
     </div>
