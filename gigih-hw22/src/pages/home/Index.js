@@ -2,6 +2,10 @@ import React from "react";
 //css
 import "./Index.css";
 
+import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
+import TextField from "@mui/material/TextField";
+
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Lagu from "../../components/Lagu";
@@ -125,11 +129,30 @@ const Main = () => {
           <div className="card">
             {token ? (
               <form onSubmit={searchArtists}>
-                <input
+                {/* <input
+                  type="text"
+                  onChange={(e) => setsearchKey(e.target.value)}
+                /> */}
+                <Box
+                  component="form"
+                  sx={{
+                    "& > :not(style)": { m: 1, width: "25ch" },
+                  }}
+                  noValidate
+                  autoComplete="off"
+                ></Box>
+
+                <TextField
+                  id="standard-basic"
+                  // label="Standard"
+                  variant="standard"
                   type="text"
                   onChange={(e) => setsearchKey(e.target.value)}
                 />
-                <button type={"submit"}>Search</button>
+                {/* <button type={"submit"}>Search</button> */}
+                <Button type={"submit"} variant="contained">
+                  Search
+                </Button>
               </form>
             ) : (
               <p>Please login</p>
