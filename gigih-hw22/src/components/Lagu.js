@@ -1,12 +1,12 @@
 import React from "react";
 import CardLagu from "./cardLagu";
+import "./Lagu.css";
 
 const Lagu = ({ tracks, onSelectTrack, selectTrack }) => {
   function renderCardLagu() {
     return tracks.map((track) => {
       return (
         <CardLagu
-          className="top"
           key={track.id}
           tracks={track}
           onSelectTracks={onSelectTrack}

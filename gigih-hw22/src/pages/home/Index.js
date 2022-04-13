@@ -1,7 +1,5 @@
 import React from "react";
-
 //css
-// import "./index.css";
 import "./Index.css";
 
 import { useEffect, useState } from "react";
@@ -78,6 +76,7 @@ const Main = () => {
       },
     });
     setArtist(data.tracks.items);
+    // console.log(data.tracks.items);
   };
 
   useEffect(() => {
@@ -120,52 +119,40 @@ const Main = () => {
   };
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div className="form">
-          <div className="container">
-            <div className="card">
-              <div className="title"></div>
+    <header>
+      <div className="form">
+        <div className="container">
+          <div className="card">
+            {token ? (
+              <form onSubmit={searchArtists}>
+                <input
+                  type="text"
+                  onChange={(e) => setsearchKey(e.target.value)}
+                />
+                <button type={"submit"}>Search</button>
+              </form>
+            ) : (
+              <p>Please login</p>
+            )}
 
-              {token ? (
-                <form onSubmit={searchArtists}>
-                  <input
-                    type="text"
-                    onChange={(e) => setsearchKey(e.target.value)}
-                  />
-                  <button type={"submit"}>Search</button>
-                </form>
-              ) : (
-                <p>Please login</p>
-              )}
-
-              {!token ? (
-                <LoginPage />
-              ) : (
-                <button onClick={logout}>Logout</button>
-              )}
-            </div>
+            {!token ? <LoginPage /> : <button onClick={logout}>Logout</button>}
           </div>
         </div>
-        <div>
-          {itemSelected.length > 0 ? (
-            <div>
-              <NewPlaylist onSubmit={handleCreatePlaylist} />
-              {/* <PlaylistView itemSelected={itemSelected} /> */}
-            </div>
-          ) : null}
-        </div>
-        <div className="top">
-          <div className="container-lagu">
-            <Lagu
-              tracks={artists}
-              onSelectTrack={handleSelect}
-              selectTrack={itemSelected}
-            />
+      </div>
+      <div>
+        {itemSelected.length > 0 ? (
+          <div>
+            <NewPlaylist onSubmit={handleCreatePlaylist} />
+            {/* <PlaylistView itemSelected={itemSelected} /> */}
           </div>
-        </div>
-      </header>
-    </div>
+        ) : null}
+      </div>
+      <Lagu
+        tracks={artists}
+        onSelectTrack={handleSelect}
+        selectTrack={itemSelected}
+      />
+    </header>
   );
 };
 
