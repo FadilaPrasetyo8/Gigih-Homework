@@ -6,17 +6,17 @@ import Button from "@mui/material/Button";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 import Lagu from "../../components/Lagu";
 import NewPlaylist from "../../components/newPlaylist";
 import LoginPage from "../Login/Login";
+import TokenContext from "../../contex/contex";
 import {
   getTracks,
   getToken,
   createPlaylist,
   getUserInfo,
-  addTracks,
 } from "../../auth/auth";
 
 const Main = () => {
@@ -26,7 +26,7 @@ const Main = () => {
   const RESPONE_TYPE = "token";
   const SCOPE = "playlist-modify-private";
 
-  const [token, setToken] = useState("");
+  const { token, setToken } = useContext(TokenContext);
   const [searchKey, setsearchKey] = useState("");
   const [artists, setArtist] = useState([]);
   const [itemSelected, setItemSelected] = useState([]);
@@ -89,7 +89,7 @@ const Main = () => {
         setUserInfo(res);
       });
     }
-  }, [token]);
+  }, []);
 
   const handleCreatePlaylist = (e) => {
     e.preventDefault();
@@ -127,38 +127,33 @@ const Main = () => {
       <div className="form">
         <div className="container">
           <div className="card">
-            {token ? (
-              <form onSubmit={searchArtists}>
-                {/* <input
+            <form onSubmit={searchArtists}>
+              {/* <input
                   type="text"
                   onChange={(e) => setsearchKey(e.target.value)}
                 /> */}
-                <Box
-                  component="form"
-                  sx={{
-                    "& > :not(style)": { m: 1, width: "25ch" },
-                  }}
-                  noValidate
-                  autoComplete="off"
-                ></Box>
+              <Box
+                component="form"
+                sx={{
+                  "& > :not(style)": { m: 1, width: "25ch" },
+                }}
+                noValidate
+                autoComplete="off"
+              ></Box>
 
-                <TextField
-                  id="standard-basic"
-                  // label="Standard"
-                  variant="standard"
-                  type="text"
-                  onChange={(e) => setsearchKey(e.target.value)}
-                />
-                {/* <button type={"submit"}>Search</button> */}
-                <Button type={"submit"} variant="contained">
-                  Search
-                </Button>
-              </form>
-            ) : (
-              <p>Please login</p>
-            )}
-
-            {!token ? <LoginPage /> : <button onClick={logout}>Logout</button>}
+              <TextField
+                id="standard-basic"
+                // label="Standard"
+                variant="standard"
+                type="text"
+                onChange={(e) => setsearchKey(e.target.value)}
+              />
+              {/* <button type={"submit"}>Search</button> */}
+              <Button type={"submit"} variant="contained">
+                Search
+              </Button>
+            </form>
+            <button onClick={logout}>Logout</button>
           </div>
         </div>
       </div>
