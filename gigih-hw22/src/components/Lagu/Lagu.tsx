@@ -1,5 +1,4 @@
-import React from "react";
-import CardLagu from "./cardLagu";
+import CardLagu from "../cardLagu/cardLagu";
 import "./Lagu.css";
 
 const Lagu = ({ tracks, onSelectTrack, selectTrack }) => {

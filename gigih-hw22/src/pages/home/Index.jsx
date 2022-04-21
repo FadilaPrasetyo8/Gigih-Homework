@@ -8,24 +8,13 @@ import TextField from "@mui/material/TextField";
 
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import Lagu from "../../components/Lagu";
-import NewPlaylist from "../../components/newPlaylist";
-import LoginPage from "../Login/Login";
+import Lagu from "../../components/Lagu/Lagu";
+import NewPlaylist from "../../components/newPlaylist/newPlaylist";
 import TokenContext from "../../contex/contex";
-import {
-  getTracks,
-  getToken,
-  createPlaylist,
-  getUserInfo,
-} from "../../auth/auth";
+import { getToken } from "../../auth/getToken";
+import { createPlaylist, getUserInfo } from "../../auth/auth";
 
 const Main = () => {
-  const CLIENT_ID = "55ec1a3ca9a64bfa9720edac9915bf53";
-  const REDIRECT_URI = "http://localhost:3000/";
-  const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
-  const RESPONE_TYPE = "token";
-  const SCOPE = "playlist-modify-private";
-
   const { token, setToken } = useContext(TokenContext);
   const [searchKey, setsearchKey] = useState("");
   const [artists, setArtist] = useState([]);
@@ -36,30 +25,11 @@ const Main = () => {
   // Config
 
   const [userInfo, setUserInfo] = useState([]);
-  const [show, setShow] = useState(false);
 
   useEffect(() => {
-    // const hash = window.location.hash;
-    // console.log(window.location);
-    // let tkn = window.localStorage.getItem("token");
-
     if (!token) {
       setToken(getToken());
     }
-
-    // if (!token && hash) {
-    //   setToken(
-    //     hash
-    //       .substring(1)
-    //       .split("&")
-    //       .find((elem) => elem.startsWith("access_token"))
-    //       .split("=")[1]
-    //   );
-    //   window.location.hash = "";
-
-    //   // window.localStorage.setItem("token", token);
-    // }
-    // setToken(token);
   }, []);
 
   const logout = () => {
@@ -84,8 +54,8 @@ const Main = () => {
   };
 
   useEffect(() => {
-    if (token) {
-      getUserInfo(token).then((res) => {
+    if (localStorage.getItem("token")) {
+      getUserInfo().then((res) => {
         setUserInfo(res);
       });
     }
@@ -102,7 +72,7 @@ const Main = () => {
 
     // Create playlist and add the selected tracks
     const tracksToAdd = itemSelected.map((track) => track.uri);
-    createPlaylist(userInfo.id, playlistData, tracksToAdd);
+    createPlaylist(userInfo.id, playlistData, tracksToAdd, token);
 
     // Reset State
     setItemSelected([]);
@@ -124,10 +94,15 @@ const Main = () => {
 
   return (
     <header>
+      <div className="logout">
+        <Button variant="contained" onClick={logout} className="btn-primary">
+          LogOut
+        </Button>
+      </div>
       <div className="form">
         <div className="container">
           <div className="card">
-            <form onSubmit={searchArtists}>
+            <form className="search-artist" onSubmit={searchArtists}>
               {/* <input
                   type="text"
                   onChange={(e) => setsearchKey(e.target.value)}
@@ -153,7 +128,6 @@ const Main = () => {
                 Search
               </Button>
             </form>
-            <button onClick={logout}>Logout</button>
           </div>
         </div>
       </div>

@@ -1,3 +1,19 @@
+.logout {
+  padding: 20px 20px;
+  float: right;
+}
+
+.logout button {
+  background-color: rgb(236, 14, 14);
+}
+.logout button:hover {
+  background-color: rgb(239, 49, 49);
+}
+
+header {
+  background-color: #141414;
+}
+
 .form {
   height: 200px;
 }
@@ -8,11 +24,11 @@
 }
 
 .card {
-  border: 1px solid #000000;
+  border: 1px solid #373232;
   width: fit-content;
   margin: auto;
   padding: 30px 20px;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 3px 6px #888888;
   background-color: #ffffff;
   border-radius: 6px;
 }
@@ -40,4 +56,8 @@
 
 .top {
   height: 1700px;
+}
+
+.search-artist button {
+  margin-left: 10px;
 }

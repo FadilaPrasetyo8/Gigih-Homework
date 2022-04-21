@@ -1,16 +1,10 @@
-.container {
-  padding-top: 40px;
-  width: 100%;
-}
-
 .cards {
   border: 1px solid #000000;
   width: fit-content;
-  box-shadow: 5px 10px #888888;
+  box-shadow: 5px 10px #242525;
   text-align: center;
-  background-color: #ffffff;
+  background-color: #242525;
   border-radius: 8px;
-  margin-bottom: 30px;
   margin: auto;
   width: 400px;
   height: 200px;
@@ -26,9 +20,17 @@
   font-family: Arial, Helvetica, sans-serif;
   color: #888888;
 }
+.card-name p {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #888888;
+}
+.card-duration p {
+  font-family: Arial, Helvetica, sans-serif;
+  color: #888888;
+}
 
 .btn button {
-  background-color: #ff8000;
+  background-color: #6bcb77;
   margin-bottom: 10px;
   color: #ffffff;
   padding: 10px 20px;

@@ -2,7 +2,7 @@
 import { authSpotify } from "../../auth/auth";
 
 // Components
-import Login from "../../components/Login";
+import Login from "../../components/Login/Login";
 
 const LoginPage = () => {
   return <Login onClick={authSpotify} />;

@@ -1,13 +1,15 @@
 import "./Login.css";
 
+import Button from "@mui/material/Button";
+
 const Login = ({ onClick }) => {
   return (
     <div className="container-welcome">
       <div className="welcome">
-        <h1>&#x1F44B; Welcome</h1>
-        <button onClick={onClick} className="btn-primary">
+        <h1>&#x270B; Welcome</h1>
+        <Button variant="contained" onClick={onClick} className="btn-primary">
           Login
-        </button>
+        </Button>
       </div>
     </div>
   );

@@ -1,0 +1,35 @@
+.container-welcome {
+  display: grid;
+  place-items: center;
+  background: linear-gradient(
+    to bottom,
+    hsl(var(--clr-grey) / 0.5),
+    hsl(var(--bg-body))
+  );
+  height: 100vh;
+}
+
+.welcome {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 2rem;
+  text-align: center;
+}
+.welcome h1 {
+  color: #ffffff;
+}
+
+.welcome img {
+  width: 5rem;
+}
+
+.welcome button {
+  background-color: #71ed40;
+}
+
+.welcome button:hover {
+  background-color: #8bec65;
+}

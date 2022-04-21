@@ -11,7 +11,7 @@ import {
   Redirect,
 } from "react-router-dom";
 
-import { getToken } from "./auth/auth";
+import { getToken } from "./auth/getToken";
 import LoginPage from "./pages/Login/Login";
 import TokenContext from "./contex/contex";
 
