@@ -63,7 +63,7 @@ export const addTracks = async (id: string, tracks: [], token: string) => {
 export const authSpotify = () => {
   const config = {
     client_id: "55ec1a3ca9a64bfa9720edac9915bf53",
-    redirect_uri: "http://localhost:3000/",
+    redirect_uri: process.env.REACT_APP_BASE_URL,
     authorize_url: `https://accounts.spotify.com/authorize`,
     scope: [
       "user-read-email",
