@@ -16,11 +16,18 @@ const NewPlaylist = ({ onSubmit }) => {
               required
               id="title"
               placeholder="Judul Playlist"
+              minLength={10}
             />
           </div>
           <div className="form-card">
             <label htmlFor="desc">Deskripsi</label>
-            <input type="text" required id="desc" placeholder="Deskripsi" />
+            <input
+              type="text"
+              required
+              minLength={20}
+              id="desc"
+              placeholder="Deskripsi"
+            />
           </div>
           <div className="form-card">
             <button id="submit">Create</button>
