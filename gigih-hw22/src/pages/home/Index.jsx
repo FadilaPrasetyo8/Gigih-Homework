@@ -102,23 +102,19 @@ const Main = () => {
       <div className="form">
         <div className="container">
           <div className="card">
-            <form className="search-artist" onSubmit={searchArtists}>
-              {/* <input
-                  type="text"
-                  onChange={(e) => setsearchKey(e.target.value)}
-                /> */}
-              <Box
-                component="form"
-                sx={{
-                  "& > :not(style)": { m: 1, width: "25ch" },
-                }}
-                noValidate
-                autoComplete="off"
-              ></Box>
-
+            {/* <form className="search-artist" onSubmit={searchArtists}> */}
+            <Box
+              className="search-artist"
+              onSubmit={searchArtists}
+              component="form"
+              sx={{
+                "& > :not(style)": { m: 1, width: "25ch" },
+              }}
+              noValidate
+              autoComplete="off"
+            >
               <TextField
                 id="standard-basic"
-                // label="Standard"
                 variant="standard"
                 type="text"
                 onChange={(e) => setsearchKey(e.target.value)}
@@ -127,7 +123,8 @@ const Main = () => {
               <Button type={"submit"} variant="contained">
                 Search
               </Button>
-            </form>
+            </Box>
+            {/* </form> */}
           </div>
         </div>
       </div>

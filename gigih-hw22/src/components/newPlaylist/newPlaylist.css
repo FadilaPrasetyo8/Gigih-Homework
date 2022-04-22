@@ -4,9 +4,15 @@
 .card {
   margin-bottom: 30px;
 }
+
+.title h1 {
+  color: rgba(255, 255, 255, 0.277);
+}
+
 .form-card label {
   float: left;
   margin-top: 13px;
+  color: rgba(255, 255, 255, 0.277);
 }
 .form-card input {
   float: right;
@@ -16,4 +22,7 @@
 
 .form-card button {
   margin-top: 20px;
+  padding: 5px 10px;
+  background-color: rgb(255, 255, 255);
+  margin-left: 75%;
 }

@@ -1,4 +1,4 @@
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import "@testing-library/jest-dom";
 import CardLagu from "./cardLagu";
 // import * as APIService from "../../auth/api";
@@ -81,25 +81,27 @@ const data = {
 };
 
 beforeEach(() => {
-  render(<CardLagu tracks={data} onSelectTrack={() => {}} isSelected={true} />);
+  render(
+    <CardLagu tracks={data} onSelectTracks={() => {}} itemSelected={true} />
+  );
 });
 
 test("Check album image render", () => {
   const imageElement = screen.getAllByAltText(/img-albums/i);
-  expect(imageElement).toBeInTheDocument;
+  expect(imageElement).toBeInTheDocument();
 });
 
 // test("Check album image source is right", () => {
-//   const imageElement = screen.getAllByAltText(/img-albums/i);
+//   const imageElement = screen.getAllByAltText(/img-albu  ms/i);
 //   expect(imageElement.getAttribute("src")).toBe(data.album.images[0].url);
 // });
 
-test("Check album image render", () => {
+test("Check Name", () => {
   const titleElement = screen.getByText(data.name);
-  expect(titleElement).toBeInTheDocument;
+  expect(titleElement).toBeInTheDocument();
 });
 
-test("Check album image render", () => {
+test("Check Artist Name", () => {
   const artistNameElement = screen.getByText(data.artists[0].name);
-  expect(artistNameElement).toBeInTheDocument;
+  expect(artistNameElement).toBeInTheDocument();
 });

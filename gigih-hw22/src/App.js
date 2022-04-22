@@ -24,7 +24,7 @@ function App() {
     if (!token) {
       setToken(getToken());
     }
-  }, []);
+  }, [token]);
 
   return (
     <TokenContext.Provider value={value}>
