@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
-import "@testing-library/jest-dom";
+import "@testing-library/jest-dom/extend-expect";
 import CardLagu from "./cardLagu";
-// import * as APIService from "../../auth/api";
 
 const data = {
   album: {
@@ -81,13 +80,14 @@ const data = {
 };
 
 beforeEach(() => {
+  // eslint-disable-next-line
   render(
     <CardLagu tracks={data} onSelectTracks={() => {}} itemSelected={true} />
   );
 });
 
 test("Check album image render", () => {
-  const imageElement = screen.getAllByAltText(/img-albums/i);
+  const imageElement = screen.getByAltText(/img-albums/i);
   expect(imageElement).toBeInTheDocument();
 });
 
